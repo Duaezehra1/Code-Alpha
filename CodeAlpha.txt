@@ -1,0 +1,53 @@
+import javax.swing.*;
+import java.awt.event.*;
+
+public class CodeAlpha extends JFrame {
+    private JLabel inputLabel, resultLabel;
+    private JTextArea inputTextArea;
+    private JButton countButton;
+
+    public CodeAlpha() {
+        setTitle("Word Counter");
+        setLayout(null);
+
+        inputLabel = new JLabel("Enter your paragraph:");
+        inputLabel.setBounds(20, 20, 150, 20);
+        add(inputLabel);
+
+        inputTextArea = new JTextArea();
+        inputTextArea.setLineWrap(true);
+        JScrollPane scrollPane = new JScrollPane(inputTextArea);
+        scrollPane.setBounds(20, 50, 350, 150);
+        add(scrollPane);
+
+        countButton = new JButton("Count Words");
+        countButton.setBounds(20, 220, 120, 30);
+        add(countButton);
+
+        resultLabel = new JLabel("Word count: ");
+        resultLabel.setBounds(20, 270, 150, 20);
+        add(resultLabel);
+
+        countButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text = inputTextArea.getText();
+                int wordCount = countWords(text);
+                resultLabel.setText("Word count: " + wordCount);
+            }
+        });
+
+        setSize(400, 350);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    private int countWords(String text) {
+        String[] words = text.trim().split("\\s+");
+        return words.length;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new CodeAlpha());
+    }
+}
